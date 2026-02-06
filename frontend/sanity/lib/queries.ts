@@ -1,6 +1,20 @@
 import {defineQuery} from 'next-sanity'
 
-export const settingsQuery = defineQuery(`*[_type == "settings"][0]`)
+export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
+  ...,
+  footer->{
+    _id,
+    _type,
+    tagline,
+    columns,
+    address,
+    phone,
+    email,
+    copyrightText,
+    parentCompany,
+    parentCompanyUrl
+  }
+}`)
 
 const postFields = /* groq */ `
   _id,
@@ -27,6 +41,69 @@ const linkFields = /* groq */ `
       }
 `
 
+const pageBuilderExpansion = /* groq */ `
+  "pageBuilder": pageBuilder[]{
+    ...,
+    _type == "callToAction" => {
+      ...,
+      button {
+        ...,
+        ${linkFields}
+      }
+    },
+    _type == "infoSection" => {
+      content[]{
+        ...,
+        markDefs[]{
+          ...,
+          ${linkReference}
+        }
+      }
+    },
+    _type == "heroSection" => {
+      ...,
+      heroImage {
+        ...,
+        asset->
+      }
+    },
+    _type == "statsIconBar" => {
+      ...,
+      items[]{
+        ...,
+        icon {
+          ...,
+          asset->
+        }
+      }
+    },
+    _type == "featureBlock" => {
+      ...,
+      image {
+        ...,
+        asset->
+      }
+    },
+    _type == "imageCta" => {
+      ...,
+      backgroundImage {
+        ...,
+        asset->
+      }
+    },
+  }
+`
+
+export const homepageQuery = defineQuery(`
+  *[_type == 'page' && slug.current == 'home'][0]{
+    _id,
+    _type,
+    name,
+    slug,
+    ${pageBuilderExpansion},
+  }
+`)
+
 export const getPageQuery = defineQuery(`
   *[_type == 'page' && slug.current == $slug][0]{
     _id,
@@ -35,25 +112,7 @@ export const getPageQuery = defineQuery(`
     slug,
     heading,
     subheading,
-    "pageBuilder": pageBuilder[]{
-      ...,
-      _type == "callToAction" => {
-        ...,
-        button {
-          ...,
-          ${linkFields}
-        }
-      },
-      _type == "infoSection" => {
-        content[]{
-          ...,
-          markDefs[]{
-            ...,
-            ${linkReference}
-          }
-        }
-      },
-    },
+    ${pageBuilderExpansion},
   }
 `)
 

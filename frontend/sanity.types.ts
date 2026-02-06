@@ -13,6 +13,129 @@
  */
 
 // Source: ../sanity.schema.json
+export type SanityImageAssetReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+}
+
+export type Icon = {
+  asset?: SanityImageAssetReference
+  media?: unknown // Unable to locate the referenced type "icon.media" in schema
+  hotspot?: SanityImageHotspot
+  crop?: SanityImageCrop
+  _type: 'image'
+}
+
+export type ImageCta = {
+  _type: 'imageCta'
+  headline: string
+  ctaText?: string
+  ctaUrl?: string
+  backgroundImage: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  overlayOpacity?: number
+}
+
+export type TestimonialsCarousel = {
+  _type: 'testimonialsCarousel'
+  headline?: string
+  testimonials?: Array<{
+    quote: string
+    name: string
+    descriptor?: string
+    _key: string
+  }>
+}
+
+export type StatsBand = {
+  _type: 'statsBand'
+  showLogo?: boolean
+  stats?: Array<{
+    value: string
+    label: string
+    icon?: string
+    _key: string
+  }>
+}
+
+export type ComparisonTable = {
+  _type: 'comparisonTable'
+  headline: string
+  subheadline?: string
+  competitors?: Array<string>
+  highlightColumnName?: string
+  rows?: Array<{
+    feature: string
+    values?: Array<boolean>
+    _key: string
+  }>
+}
+
+export type FeatureBlock = {
+  _type: 'featureBlock'
+  image?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  imagePosition?: 'left' | 'right'
+  headline: string
+  ctaText?: string
+  ctaUrl?: string
+  ctaVariant?: 'primary' | 'secondary' | 'outline'
+  label?: string
+  listItems?: Array<{
+    icon?: string
+    text: string
+    _key: string
+  }>
+}
+
+export type StatsIconBar = {
+  _type: 'statsIconBar'
+  items?: Array<{
+    icon?: Icon
+    iconFallback?: string
+    label: string
+    _key: string
+  }>
+}
+
+export type HeroSection = {
+  _type: 'heroSection'
+  ratingCount?: string
+  headline: string
+  headlineEmphasis?: string
+  subtext?: string
+  ctaText?: string
+  ctaUrl?: string
+  microCopy?: string
+  heroImage?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+}
+
+export type AnnouncementBar = {
+  _type: 'announcementBar'
+  text?: string
+  linkText?: string
+  linkUrl?: string
+  isVisible?: boolean
+}
+
 export type PageReference = {
   _ref: string
   _type: 'reference'
@@ -34,13 +157,6 @@ export type Link = {
   page?: PageReference
   post?: PostReference
   openInNewTab?: boolean
-}
-
-export type SanityImageAssetReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
 }
 
 export type CallToAction = {
@@ -125,6 +241,13 @@ export type Button = {
   link?: Link
 }
 
+export type FooterReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'footer'
+}
+
 export type Settings = {
   _id: string
   _type: 'settings'
@@ -132,6 +255,13 @@ export type Settings = {
   _updatedAt: string
   _rev: string
   title: string
+  logo?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
   description?: Array<{
     children?: Array<{
       marks?: Array<string>
@@ -154,6 +284,16 @@ export type Settings = {
     _type: 'block'
     _key: string
   }>
+  phone?: string
+  email?: string
+  address?: string
+  announcementBar?: AnnouncementBar
+  navigation?: Array<{
+    label: string
+    url: string
+    _key: string
+  }>
+  footer?: FooterReference
   ogImage?: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -181,6 +321,30 @@ export type SanityImageHotspot = {
   width: number
 }
 
+export type Footer = {
+  _id: string
+  _type: 'footer'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  tagline?: string
+  columns?: Array<{
+    title: string
+    links?: Array<{
+      label: string
+      url: string
+      _key: string
+    }>
+    _key: string
+  }>
+  address?: string
+  phone?: string
+  email?: string
+  copyrightText?: string
+  parentCompany?: string
+  parentCompanyUrl?: string
+}
+
 export type Page = {
   _id: string
   _type: 'page'
@@ -189,7 +353,7 @@ export type Page = {
   _rev: string
   name: string
   slug: Slug
-  heading: string
+  heading?: string
   subheading?: string
   pageBuilder?: Array<
     | ({
@@ -198,7 +362,39 @@ export type Page = {
     | ({
         _key: string
       } & InfoSection)
+    | ({
+        _key: string
+      } & HeroSection)
+    | ({
+        _key: string
+      } & StatsIconBar)
+    | ({
+        _key: string
+      } & FeatureBlock)
+    | ({
+        _key: string
+      } & ComparisonTable)
+    | ({
+        _key: string
+      } & StatsBand)
+    | ({
+        _key: string
+      } & TestimonialsCarousel)
+    | ({
+        _key: string
+      } & ImageCta)
   >
+  seo?: {
+    metaTitle?: string
+    metaDescription?: string
+    ogImage?: {
+      asset?: SanityImageAssetReference
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+  }
 }
 
 export type PersonReference = {
@@ -488,18 +684,29 @@ export type Geopoint = {
 }
 
 export type AllSanitySchemaTypes =
+  | SanityImageAssetReference
+  | Icon
+  | ImageCta
+  | TestimonialsCarousel
+  | StatsBand
+  | ComparisonTable
+  | FeatureBlock
+  | StatsIconBar
+  | HeroSection
+  | AnnouncementBar
   | PageReference
   | PostReference
   | Link
-  | SanityImageAssetReference
   | CallToAction
   | InfoSection
   | BlockContentTextOnly
   | BlockContent
   | Button
+  | FooterReference
   | Settings
   | SanityImageCrop
   | SanityImageHotspot
+  | Footer
   | Page
   | PersonReference
   | Post
@@ -531,7 +738,7 @@ export declare const internalGroqTypeReferenceTo: unique symbol
 
 // Source: sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]
+// Query: *[_type == "settings"][0]{  ...,  footer->{    _id,    _type,    tagline,    columns,    address,    phone,    email,    copyrightText,    parentCompany,    parentCompanyUrl  }}
 export type SettingsQueryResult = {
   _id: string
   _type: 'settings'
@@ -539,6 +746,13 @@ export type SettingsQueryResult = {
   _updatedAt: string
   _rev: string
   title: string
+  logo?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
   description?: Array<{
     children?: Array<{
       marks?: Array<string>
@@ -561,6 +775,35 @@ export type SettingsQueryResult = {
     _type: 'block'
     _key: string
   }>
+  phone?: string
+  email?: string
+  address?: string
+  announcementBar?: AnnouncementBar
+  navigation?: Array<{
+    label: string
+    url: string
+    _key: string
+  }>
+  footer: {
+    _id: string
+    _type: 'footer'
+    tagline: string | null
+    columns: Array<{
+      title: string
+      links?: Array<{
+        label: string
+        url: string
+        _key: string
+      }>
+      _key: string
+    }> | null
+    address: string | null
+    phone: string | null
+    email: string | null
+    copyrightText: string | null
+    parentCompany: string | null
+    parentCompanyUrl: string | null
+  } | null
   ogImage?: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -573,15 +816,13 @@ export type SettingsQueryResult = {
 } | null
 
 // Source: sanity/lib/queries.ts
-// Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {        ...,        button {          ...,            link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }        }      },      _type == "infoSection" => {        content[]{          ...,          markDefs[]{            ...,              _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }          }        }      },    },  }
-export type GetPageQueryResult = {
+// Variable: homepageQuery
+// Query: *[_type == 'page' && slug.current == 'home'][0]{    _id,    _type,    name,    slug,      "pageBuilder": pageBuilder[]{    ...,    _type == "callToAction" => {      ...,      button {        ...,          link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }      }    },    _type == "infoSection" => {      content[]{        ...,        markDefs[]{          ...,            _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }        }      }    },    _type == "heroSection" => {      ...,      heroImage {        ...,        asset->      }    },    _type == "statsIconBar" => {      ...,      items[]{        ...,        icon {          ...,          asset->        }      }    },    _type == "featureBlock" => {      ...,      image {        ...,        asset->      }    },    _type == "imageCta" => {      ...,      backgroundImage {        ...,        asset->      }    },  },  }
+export type HomepageQueryResult = {
   _id: string
   _type: 'page'
   name: string
   slug: Slug
-  heading: string
-  subheading: string | null
   pageBuilder: Array<
     | {
         _key: string
@@ -610,6 +851,137 @@ export type GetPageQueryResult = {
         }
         theme?: 'dark' | 'light'
         contentAlignment?: 'imageFirst' | 'textFirst'
+      }
+    | {
+        _key: string
+        _type: 'comparisonTable'
+        headline: string
+        subheadline?: string
+        competitors?: Array<string>
+        highlightColumnName?: string
+        rows?: Array<{
+          feature: string
+          values?: Array<boolean>
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'featureBlock'
+        image: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        } | null
+        imagePosition?: 'left' | 'right'
+        headline: string
+        ctaText?: string
+        ctaUrl?: string
+        ctaVariant?: 'outline' | 'primary' | 'secondary'
+        label?: string
+        listItems?: Array<{
+          icon?: string
+          text: string
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'heroSection'
+        ratingCount?: string
+        headline: string
+        headlineEmphasis?: string
+        subtext?: string
+        ctaText?: string
+        ctaUrl?: string
+        microCopy?: string
+        heroImage: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        } | null
+      }
+    | {
+        _key: string
+        _type: 'imageCta'
+        headline: string
+        ctaText?: string
+        ctaUrl?: string
+        backgroundImage: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        }
+        overlayOpacity?: number
       }
     | {
         _key: string
@@ -649,6 +1021,336 @@ export type GetPageQueryResult = {
               markDefs: null
             }
         > | null
+      }
+    | {
+        _key: string
+        _type: 'statsBand'
+        showLogo?: boolean
+        stats?: Array<{
+          value: string
+          label: string
+          icon?: string
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'statsIconBar'
+        items: Array<{
+          icon: {
+            asset: {
+              _id: string
+              _type: 'sanity.imageAsset'
+              _createdAt: string
+              _updatedAt: string
+              _rev: string
+              originalFilename?: string
+              label?: string
+              title?: string
+              description?: string
+              altText?: string
+              sha1hash?: string
+              extension?: string
+              mimeType?: string
+              size?: number
+              assetId?: string
+              uploadId?: string
+              path?: string
+              url?: string
+              metadata?: SanityImageMetadata
+              source?: SanityAssetSourceData
+            } | null
+            media?: unknown // Unable to locate the referenced type "icon.media" in schema
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            _type: 'image'
+          } | null
+          iconFallback?: string
+          label: string
+          _key: string
+        }> | null
+      }
+    | {
+        _key: string
+        _type: 'testimonialsCarousel'
+        headline?: string
+        testimonials?: Array<{
+          quote: string
+          name: string
+          descriptor?: string
+          _key: string
+        }>
+      }
+  > | null
+} | null
+
+// Source: sanity/lib/queries.ts
+// Variable: getPageQuery
+// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,      "pageBuilder": pageBuilder[]{    ...,    _type == "callToAction" => {      ...,      button {        ...,          link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }      }    },    _type == "infoSection" => {      content[]{        ...,        markDefs[]{          ...,            _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }        }      }    },    _type == "heroSection" => {      ...,      heroImage {        ...,        asset->      }    },    _type == "statsIconBar" => {      ...,      items[]{        ...,        icon {          ...,          asset->        }      }    },    _type == "featureBlock" => {      ...,      image {        ...,        asset->      }    },    _type == "imageCta" => {      ...,      backgroundImage {        ...,        asset->      }    },  },  }
+export type GetPageQueryResult = {
+  _id: string
+  _type: 'page'
+  name: string
+  slug: Slug
+  heading: string | null
+  subheading: string | null
+  pageBuilder: Array<
+    | {
+        _key: string
+        _type: 'callToAction'
+        eyebrow?: string
+        heading: string
+        body?: BlockContentTextOnly
+        button: {
+          _type: 'button'
+          buttonText?: string
+          link: {
+            _type: 'link'
+            linkType?: 'href' | 'page' | 'post'
+            href?: string
+            page: string | null
+            post: string | null
+            openInNewTab?: boolean
+          } | null
+        } | null
+        image?: {
+          asset?: SanityImageAssetReference
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        }
+        theme?: 'dark' | 'light'
+        contentAlignment?: 'imageFirst' | 'textFirst'
+      }
+    | {
+        _key: string
+        _type: 'comparisonTable'
+        headline: string
+        subheadline?: string
+        competitors?: Array<string>
+        highlightColumnName?: string
+        rows?: Array<{
+          feature: string
+          values?: Array<boolean>
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'featureBlock'
+        image: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        } | null
+        imagePosition?: 'left' | 'right'
+        headline: string
+        ctaText?: string
+        ctaUrl?: string
+        ctaVariant?: 'outline' | 'primary' | 'secondary'
+        label?: string
+        listItems?: Array<{
+          icon?: string
+          text: string
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'heroSection'
+        ratingCount?: string
+        headline: string
+        headlineEmphasis?: string
+        subtext?: string
+        ctaText?: string
+        ctaUrl?: string
+        microCopy?: string
+        heroImage: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        } | null
+      }
+    | {
+        _key: string
+        _type: 'imageCta'
+        headline: string
+        ctaText?: string
+        ctaUrl?: string
+        backgroundImage: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        }
+        overlayOpacity?: number
+      }
+    | {
+        _key: string
+        _type: 'infoSection'
+        heading?: string
+        subheading?: string
+        content: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs: Array<{
+                linkType?: 'href' | 'page' | 'post'
+                href?: string
+                page: string | null
+                post: string | null
+                openInNewTab?: boolean
+                _type: 'link'
+                _key: string
+              }> | null
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: SanityImageAssetReference
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              _type: 'image'
+              _key: string
+              markDefs: null
+            }
+        > | null
+      }
+    | {
+        _key: string
+        _type: 'statsBand'
+        showLogo?: boolean
+        stats?: Array<{
+          value: string
+          label: string
+          icon?: string
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'statsIconBar'
+        items: Array<{
+          icon: {
+            asset: {
+              _id: string
+              _type: 'sanity.imageAsset'
+              _createdAt: string
+              _updatedAt: string
+              _rev: string
+              originalFilename?: string
+              label?: string
+              title?: string
+              description?: string
+              altText?: string
+              sha1hash?: string
+              extension?: string
+              mimeType?: string
+              size?: number
+              assetId?: string
+              uploadId?: string
+              path?: string
+              url?: string
+              metadata?: SanityImageMetadata
+              source?: SanityAssetSourceData
+            } | null
+            media?: unknown // Unable to locate the referenced type "icon.media" in schema
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            _type: 'image'
+          } | null
+          iconFallback?: string
+          label: string
+          _key: string
+        }> | null
+      }
+    | {
+        _key: string
+        _type: 'testimonialsCarousel'
+        headline?: string
+        testimonials?: Array<{
+          quote: string
+          name: string
+          descriptor?: string
+          _key: string
+        }>
       }
   > | null
 } | null
@@ -816,8 +1518,9 @@ export type PagesSlugsResult = Array<{
 import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "settings"][0]': SettingsQueryResult
-    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      ...,\n      _type == "callToAction" => {\n        ...,\n        button {\n          ...,\n          \n  link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n\n        }\n      },\n      _type == "infoSection" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n          }\n        }\n      },\n    },\n  }\n': GetPageQueryResult
+    '*[_type == "settings"][0]{\n  ...,\n  footer->{\n    _id,\n    _type,\n    tagline,\n    columns,\n    address,\n    phone,\n    email,\n    copyrightText,\n    parentCompany,\n    parentCompanyUrl\n  }\n}': SettingsQueryResult
+    '\n  *[_type == \'page\' && slug.current == \'home\'][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    \n  "pageBuilder": pageBuilder[]{\n    ...,\n    _type == "callToAction" => {\n      ...,\n      button {\n        ...,\n        \n  link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n\n      }\n    },\n    _type == "infoSection" => {\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n        }\n      }\n    },\n    _type == "heroSection" => {\n      ...,\n      heroImage {\n        ...,\n        asset->\n      }\n    },\n    _type == "statsIconBar" => {\n      ...,\n      items[]{\n        ...,\n        icon {\n          ...,\n          asset->\n        }\n      }\n    },\n    _type == "featureBlock" => {\n      ...,\n      image {\n        ...,\n        asset->\n      }\n    },\n    _type == "imageCta" => {\n      ...,\n      backgroundImage {\n        ...,\n        asset->\n      }\n    },\n  }\n,\n  }\n': HomepageQueryResult
+    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \n  "pageBuilder": pageBuilder[]{\n    ...,\n    _type == "callToAction" => {\n      ...,\n      button {\n        ...,\n        \n  link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n\n      }\n    },\n    _type == "infoSection" => {\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n        }\n      }\n    },\n    _type == "heroSection" => {\n      ...,\n      heroImage {\n        ...,\n        asset->\n      }\n    },\n    _type == "statsIconBar" => {\n      ...,\n      items[]{\n        ...,\n        icon {\n          ...,\n          asset->\n        }\n      }\n    },\n    _type == "featureBlock" => {\n      ...,\n      image {\n        ...,\n        asset->\n      }\n    },\n    _type == "imageCta" => {\n      ...,\n      backgroundImage {\n        ...,\n        asset->\n      }\n    },\n  }\n,\n  }\n': GetPageQueryResult
     '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult
     '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult
     '\n  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': MorePostsQueryResult

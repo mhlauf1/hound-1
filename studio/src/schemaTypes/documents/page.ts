@@ -1,11 +1,6 @@
 import {defineField, defineType} from 'sanity'
 import {DocumentIcon} from '@sanity/icons'
 
-/**
- * Page schema.  Define and edit the fields for the 'page' content type.
- * Learn more: https://www.sanity.io/docs/studio/schema-types
- */
-
 export const page = defineType({
   name: 'page',
   title: 'Page',
@@ -18,7 +13,6 @@ export const page = defineType({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
-
     defineField({
       name: 'slug',
       title: 'Slug',
@@ -33,7 +27,6 @@ export const page = defineType({
       name: 'heading',
       title: 'Heading',
       type: 'string',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'subheading',
@@ -44,10 +37,19 @@ export const page = defineType({
       name: 'pageBuilder',
       title: 'Page builder',
       type: 'array',
-      of: [{type: 'callToAction'}, {type: 'infoSection'}],
+      of: [
+        {type: 'callToAction'},
+        {type: 'infoSection'},
+        {type: 'heroSection'},
+        {type: 'statsIconBar'},
+        {type: 'featureBlock'},
+        {type: 'comparisonTable'},
+        {type: 'statsBand'},
+        {type: 'testimonialsCarousel'},
+        {type: 'imageCta'},
+      ],
       options: {
         insertMenu: {
-          // Configure the "Add Item" menu to display a thumbnail preview of the content type. https://www.sanity.io/docs/studio/array-type#efb1fe03459d
           views: [
             {
               name: 'grid',
@@ -56,6 +58,33 @@ export const page = defineType({
             },
           ],
         },
+      },
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'metaTitle',
+          title: 'Meta Title',
+          type: 'string',
+        }),
+        defineField({
+          name: 'metaDescription',
+          title: 'Meta Description',
+          type: 'text',
+          rows: 3,
+        }),
+        defineField({
+          name: 'ogImage',
+          title: 'Open Graph Image',
+          type: 'image',
+        }),
+      ],
+      options: {
+        collapsible: true,
+        collapsed: true,
       },
     }),
   ],

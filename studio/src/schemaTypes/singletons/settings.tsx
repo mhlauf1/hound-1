@@ -2,11 +2,8 @@ import {CogIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import type {Link, Settings} from '../../../sanity.types'
 
-import * as demo from '../../lib/initialValues'
-
 /**
- * Settings schema Singleton.  Singletons are single documents that are displayed not in a collection, handy for things like site settings and other global configurations.
- * Learn more: https://www.sanity.io/docs/create-a-link-to-a-single-edit-page-in-your-main-document-type-list
+ * Settings schema Singleton.
  */
 
 export const settings = defineType({
@@ -14,23 +11,36 @@ export const settings = defineType({
   title: 'Settings',
   type: 'document',
   icon: CogIcon,
+  fieldsets: [
+    {name: 'branding', title: 'Branding'},
+    {name: 'contact', title: 'Contact Info'},
+    {name: 'announcement', title: 'Announcement Bar'},
+    {name: 'nav', title: 'Navigation'},
+    {name: 'seo', title: 'SEO'},
+  ],
   fields: [
     defineField({
       name: 'title',
-      description: 'This field is the title of your blog.',
-      title: 'Title',
+      title: 'Site Name',
       type: 'string',
-      initialValue: demo.title,
+      fieldset: 'branding',
+      initialValue: 'Hound Around Resort',
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'logo',
+      title: 'Logo',
+      type: 'image',
+      fieldset: 'branding',
+      description: 'Logo wordmark for nav and footer',
+    }),
+    defineField({
       name: 'description',
-      description: 'Used on the Homepage',
+      description: 'Used for SEO and social sharing',
       title: 'Description',
       type: 'array',
-      initialValue: demo.description,
+      fieldset: 'seo',
       of: [
-        // Define a minified block content field for the description. https://www.sanity.io/docs/block-content
         defineArrayMember({
           type: 'block',
           options: {},
@@ -116,9 +126,70 @@ export const settings = defineType({
       ],
     }),
     defineField({
+      name: 'phone',
+      title: 'Phone Number',
+      type: 'string',
+      fieldset: 'contact',
+    }),
+    defineField({
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+      fieldset: 'contact',
+    }),
+    defineField({
+      name: 'address',
+      title: 'Address',
+      type: 'text',
+      rows: 2,
+      fieldset: 'contact',
+    }),
+    defineField({
+      name: 'announcementBar',
+      title: 'Announcement Bar',
+      type: 'announcementBar',
+      fieldset: 'announcement',
+    }),
+    defineField({
+      name: 'navigation',
+      title: 'Navigation Links',
+      type: 'array',
+      fieldset: 'nav',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Label',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'url',
+              title: 'URL',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {title: 'label', subtitle: 'url'},
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'footer',
+      title: 'Footer',
+      type: 'reference',
+      to: [{type: 'footer'}],
+      fieldset: 'nav',
+    }),
+    defineField({
       name: 'ogImage',
       title: 'Open Graph Image',
       type: 'image',
+      fieldset: 'seo',
       description: 'Displayed on social cards and search engine results.',
       options: {
         hotspot: true,

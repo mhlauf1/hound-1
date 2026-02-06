@@ -13,6 +13,129 @@
  */
 
 // Source: ../sanity.schema.json
+export type SanityImageAssetReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+}
+
+export type Icon = {
+  asset?: SanityImageAssetReference
+  media?: unknown // Unable to locate the referenced type "icon.media" in schema
+  hotspot?: SanityImageHotspot
+  crop?: SanityImageCrop
+  _type: 'image'
+}
+
+export type ImageCta = {
+  _type: 'imageCta'
+  headline: string
+  ctaText?: string
+  ctaUrl?: string
+  backgroundImage: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  overlayOpacity?: number
+}
+
+export type TestimonialsCarousel = {
+  _type: 'testimonialsCarousel'
+  headline?: string
+  testimonials?: Array<{
+    quote: string
+    name: string
+    descriptor?: string
+    _key: string
+  }>
+}
+
+export type StatsBand = {
+  _type: 'statsBand'
+  showLogo?: boolean
+  stats?: Array<{
+    value: string
+    label: string
+    icon?: string
+    _key: string
+  }>
+}
+
+export type ComparisonTable = {
+  _type: 'comparisonTable'
+  headline: string
+  subheadline?: string
+  competitors?: Array<string>
+  highlightColumnName?: string
+  rows?: Array<{
+    feature: string
+    values?: Array<boolean>
+    _key: string
+  }>
+}
+
+export type FeatureBlock = {
+  _type: 'featureBlock'
+  image?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  imagePosition?: 'left' | 'right'
+  headline: string
+  ctaText?: string
+  ctaUrl?: string
+  ctaVariant?: 'primary' | 'secondary' | 'outline'
+  label?: string
+  listItems?: Array<{
+    icon?: string
+    text: string
+    _key: string
+  }>
+}
+
+export type StatsIconBar = {
+  _type: 'statsIconBar'
+  items?: Array<{
+    icon?: Icon
+    iconFallback?: string
+    label: string
+    _key: string
+  }>
+}
+
+export type HeroSection = {
+  _type: 'heroSection'
+  ratingCount?: string
+  headline: string
+  headlineEmphasis?: string
+  subtext?: string
+  ctaText?: string
+  ctaUrl?: string
+  microCopy?: string
+  heroImage?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+}
+
+export type AnnouncementBar = {
+  _type: 'announcementBar'
+  text?: string
+  linkText?: string
+  linkUrl?: string
+  isVisible?: boolean
+}
+
 export type PageReference = {
   _ref: string
   _type: 'reference'
@@ -34,13 +157,6 @@ export type Link = {
   page?: PageReference
   post?: PostReference
   openInNewTab?: boolean
-}
-
-export type SanityImageAssetReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
 }
 
 export type CallToAction = {
@@ -125,6 +241,13 @@ export type Button = {
   link?: Link
 }
 
+export type FooterReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'footer'
+}
+
 export type Settings = {
   _id: string
   _type: 'settings'
@@ -132,6 +255,13 @@ export type Settings = {
   _updatedAt: string
   _rev: string
   title: string
+  logo?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
   description?: Array<{
     children?: Array<{
       marks?: Array<string>
@@ -154,6 +284,16 @@ export type Settings = {
     _type: 'block'
     _key: string
   }>
+  phone?: string
+  email?: string
+  address?: string
+  announcementBar?: AnnouncementBar
+  navigation?: Array<{
+    label: string
+    url: string
+    _key: string
+  }>
+  footer?: FooterReference
   ogImage?: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -181,6 +321,30 @@ export type SanityImageHotspot = {
   width: number
 }
 
+export type Footer = {
+  _id: string
+  _type: 'footer'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  tagline?: string
+  columns?: Array<{
+    title: string
+    links?: Array<{
+      label: string
+      url: string
+      _key: string
+    }>
+    _key: string
+  }>
+  address?: string
+  phone?: string
+  email?: string
+  copyrightText?: string
+  parentCompany?: string
+  parentCompanyUrl?: string
+}
+
 export type Page = {
   _id: string
   _type: 'page'
@@ -189,7 +353,7 @@ export type Page = {
   _rev: string
   name: string
   slug: Slug
-  heading: string
+  heading?: string
   subheading?: string
   pageBuilder?: Array<
     | ({
@@ -198,7 +362,39 @@ export type Page = {
     | ({
         _key: string
       } & InfoSection)
+    | ({
+        _key: string
+      } & HeroSection)
+    | ({
+        _key: string
+      } & StatsIconBar)
+    | ({
+        _key: string
+      } & FeatureBlock)
+    | ({
+        _key: string
+      } & ComparisonTable)
+    | ({
+        _key: string
+      } & StatsBand)
+    | ({
+        _key: string
+      } & TestimonialsCarousel)
+    | ({
+        _key: string
+      } & ImageCta)
   >
+  seo?: {
+    metaTitle?: string
+    metaDescription?: string
+    ogImage?: {
+      asset?: SanityImageAssetReference
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+  }
 }
 
 export type PersonReference = {
@@ -488,18 +684,29 @@ export type Geopoint = {
 }
 
 export type AllSanitySchemaTypes =
+  | SanityImageAssetReference
+  | Icon
+  | ImageCta
+  | TestimonialsCarousel
+  | StatsBand
+  | ComparisonTable
+  | FeatureBlock
+  | StatsIconBar
+  | HeroSection
+  | AnnouncementBar
   | PageReference
   | PostReference
   | Link
-  | SanityImageAssetReference
   | CallToAction
   | InfoSection
   | BlockContentTextOnly
   | BlockContent
   | Button
+  | FooterReference
   | Settings
   | SanityImageCrop
   | SanityImageHotspot
+  | Footer
   | Page
   | PersonReference
   | Post
