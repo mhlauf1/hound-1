@@ -12,8 +12,9 @@ export default function StarRating({count = 5, text}: StarRatingProps) {
         {Array.from({length: count}).map((_, i) => (
           <Icon
             key={i}
-            icon="lucide:star"
-            className="w-5 h-5 text-yellow fill-yellow"
+            icon="mdi:star"
+            className="w-5 h-5 text-yellow"
+            style={{filter: 'drop-shadow(0 0 0.5px var(--color-green))'}}
           />
         ))}
       </div>

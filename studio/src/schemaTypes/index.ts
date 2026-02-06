@@ -2,8 +2,6 @@ import {person} from './documents/person'
 import {page} from './documents/page'
 import {post} from './documents/post'
 import {footer} from './documents/footer'
-import {callToAction} from './objects/callToAction'
-import {infoSection} from './objects/infoSection'
 import {settings} from './singletons/settings'
 import {link} from './objects/link'
 import {blockContent} from './objects/blockContent'
@@ -30,8 +28,6 @@ export const schemaTypes = [
   button,
   blockContent,
   blockContentTextOnly,
-  infoSection,
-  callToAction,
   link,
   announcementBar,
   heroSection,

@@ -38,8 +38,6 @@ export const page = defineType({
       title: 'Page builder',
       type: 'array',
       of: [
-        {type: 'callToAction'},
-        {type: 'infoSection'},
         {type: 'heroSection'},
         {type: 'statsIconBar'},
         {type: 'featureBlock'},

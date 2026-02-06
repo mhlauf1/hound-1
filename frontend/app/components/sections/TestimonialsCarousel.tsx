@@ -18,12 +18,12 @@ export default function TestimonialsCarousel({block}: TestimonialsCarouselProps)
   if (!testimonials || testimonials.length === 0) return null
 
   return (
-    <section className="py-20 lg:py-30 overflow-hidden">
+    <section className="py-20 lg:py-36 overflow-hidden">
       {/* Heading area */}
       <Container>
-        <div className="text-center mb-12">
+        <div className="text-center flex justify-center flex-col  mb-12 md:mb-16">
           <Icon icon="lucide:paw-print" className="w-8 h-8 text-green mx-auto mb-4" />
-          {headline && <h2>{headline}</h2>}
+          {headline && <h2 className="max-w-[12ch] mx-auto">{headline}</h2>}
         </div>
       </Container>
 
@@ -33,12 +33,12 @@ export default function TestimonialsCarousel({block}: TestimonialsCarouselProps)
           {testimonials.map((t) => (
             <div
               key={t._key}
-              className="bg-yellow rounded-xl p-6 min-w-[300px] max-w-[340px] flex-shrink-0 flex flex-col justify-between scroll-snap-start"
+              className="bg-yellow rounded-xl p-6 border border-green min-w-[300px] max-w-[340px] shrink-0 flex flex-col justify-between items-center scroll-snap-start"
               style={{scrollSnapAlign: 'start'}}
             >
-              <div>
+              <div className="w-full flex flex-col items-center">
                 <Icon icon="lucide:paw-print" className="w-6 h-6 text-green mb-4" />
-                <p className="font-sans text-base text-green leading-relaxed">
+                <p className="font-sans text-base text-green text-center leading-relaxed">
                   &ldquo;{t.quote}&rdquo;
                 </p>
               </div>

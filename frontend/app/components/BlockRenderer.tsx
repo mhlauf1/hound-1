@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Cta from '@/app/components/Cta'
-import Info from '@/app/components/InfoSection'
 import HeroSection from '@/app/components/sections/HeroSection'
 import StatsIconBar from '@/app/components/sections/StatsIconBar'
 import FeatureBlock from '@/app/components/sections/FeatureBlock'
@@ -32,8 +30,6 @@ function wrapSection(Component: React.FC<{block: any}>) {
 }
 
 const Blocks = {
-  callToAction: Cta,
-  infoSection: Info,
   heroSection: wrapSection(HeroSection),
   statsIconBar: wrapSection(StatsIconBar),
   featureBlock: wrapSection(FeatureBlock),

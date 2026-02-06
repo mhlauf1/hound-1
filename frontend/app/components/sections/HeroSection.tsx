@@ -26,22 +26,28 @@ export default function HeroSection({block}: HeroSectionProps) {
   const {headline, headlineEmphasis, subtext, ctaText, ctaUrl, microCopy, ratingCount, heroImage} =
     block
 
-  // Split headline into parts around the emphasis text
+  // Build headline parts: if emphasis text is found within the headline, split around it;
+  // otherwise append the emphasis text after the headline
   let headlineParts: {text: string; italic: boolean}[] = []
-  if (headline && headlineEmphasis && headline.includes(headlineEmphasis)) {
-    const idx = headline.indexOf(headlineEmphasis)
-    if (idx > 0) headlineParts.push({text: headline.slice(0, idx), italic: false})
-    headlineParts.push({text: headlineEmphasis, italic: true})
-    const after = headline.slice(idx + headlineEmphasis.length)
-    if (after) headlineParts.push({text: after, italic: false})
+  if (headline && headlineEmphasis) {
+    if (headline.includes(headlineEmphasis)) {
+      const idx = headline.indexOf(headlineEmphasis)
+      if (idx > 0) headlineParts.push({text: headline.slice(0, idx), italic: false})
+      headlineParts.push({text: headlineEmphasis, italic: true})
+      const after = headline.slice(idx + headlineEmphasis.length)
+      if (after) headlineParts.push({text: after, italic: false})
+    } else {
+      headlineParts.push({text: headline + ' ', italic: false})
+      headlineParts.push({text: headlineEmphasis, italic: true})
+    }
   } else {
     headlineParts = [{text: headline || '', italic: false}]
   }
 
   return (
-    <section className="py-20 lg:py-30">
+    <section className="py-16 lg:py-24">
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-10 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
           {/* Left column */}
           <div className="space-y-6">
             {ratingCount && <StarRating count={5} text={ratingCount} />}
@@ -83,13 +89,13 @@ export default function HeroSection({block}: HeroSectionProps) {
 
           {/* Right column: hero image */}
           {heroImage?.asset && (heroImage.asset._id || heroImage.asset._ref) && (
-            <div className="relative aspect-[3/4] rounded-xl border border-green overflow-hidden">
+            <div className="relative aspect-square rounded-xl border-2 border-green overflow-hidden">
               <Image
                 id={(heroImage.asset._id || heroImage.asset._ref) as string}
                 alt="Hero image"
                 className="object-cover w-full h-full"
-                width={600}
-                height={800}
+                width={500}
+                height={700}
               />
             </div>
           )}

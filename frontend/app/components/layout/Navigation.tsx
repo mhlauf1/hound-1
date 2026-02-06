@@ -19,14 +19,14 @@ export default function Navigation({settings}: NavigationProps) {
   return (
     <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-green/10">
       <div className="container">
-        <nav className="flex items-center justify-between py-5">
-          {/* Left: nav links (desktop) */}
-          <ul className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:grid grid-cols-3 items-center py-5">
+          {/* Left: nav links */}
+          <ul className="flex items-center gap-8">
             {navLinks.map((link) => (
               <li key={link._key}>
                 <Link
                   href={link.url || '/'}
-                  className="font-sans text-base text-green hover:underline underline-offset-4 transition-colors"
+                  className="font-sans text-sm text-green hover:underline underline-offset-4 transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -35,7 +35,7 @@ export default function Navigation({settings}: NavigationProps) {
           </ul>
 
           {/* Center: logo wordmark */}
-          <Link href="/" className="flex flex-col items-center leading-none">
+          <Link href="/" className="flex flex-col items-center justify-self-center leading-none">
             <span className="font-serif text-xl font-light tracking-widest uppercase text-green">
               {siteName.split(' ').slice(0, -1).join(' ')}
             </span>
@@ -44,8 +44,8 @@ export default function Navigation({settings}: NavigationProps) {
             </span>
           </Link>
 
-          {/* Right: phone + CTA (desktop) */}
-          <div className="hidden lg:flex items-center gap-6">
+          {/* Right: phone + CTA */}
+          <div className="flex items-center justify-end gap-6">
             {phone && (
               <a
                 href={`tel:${phone.replace(/[^0-9+]/g, '')}`}
@@ -59,10 +59,20 @@ export default function Navigation({settings}: NavigationProps) {
               Book Now
             </Button>
           </div>
+        </nav>
 
-          {/* Mobile hamburger */}
+        {/* Mobile nav */}
+        <nav className="flex lg:hidden items-center justify-between py-5">
+          <Link href="/" className="flex flex-col items-center leading-none">
+            <span className="font-serif text-xl font-light tracking-widest uppercase text-green">
+              {siteName.split(' ').slice(0, -1).join(' ')}
+            </span>
+            <span className="font-sans text-[10px] font-medium tracking-[0.25em] uppercase text-green">
+              {siteName.split(' ').slice(-1)[0]}
+            </span>
+          </Link>
           <button
-            className="lg:hidden p-2"
+            className="p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >

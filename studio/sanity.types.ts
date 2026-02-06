@@ -159,30 +159,6 @@ export type Link = {
   openInNewTab?: boolean
 }
 
-export type CallToAction = {
-  _type: 'callToAction'
-  eyebrow?: string
-  heading: string
-  body?: BlockContentTextOnly
-  button?: Button
-  image?: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: 'image'
-  }
-  theme?: 'light' | 'dark'
-  contentAlignment?: 'textFirst' | 'imageFirst'
-}
-
-export type InfoSection = {
-  _type: 'infoSection'
-  heading?: string
-  subheading?: string
-  content?: BlockContent
-}
-
 export type BlockContentTextOnly = Array<{
   children?: Array<{
     marks?: Array<string>
@@ -345,58 +321,6 @@ export type Footer = {
   parentCompanyUrl?: string
 }
 
-export type Page = {
-  _id: string
-  _type: 'page'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name: string
-  slug: Slug
-  heading?: string
-  subheading?: string
-  pageBuilder?: Array<
-    | ({
-        _key: string
-      } & CallToAction)
-    | ({
-        _key: string
-      } & InfoSection)
-    | ({
-        _key: string
-      } & HeroSection)
-    | ({
-        _key: string
-      } & StatsIconBar)
-    | ({
-        _key: string
-      } & FeatureBlock)
-    | ({
-        _key: string
-      } & ComparisonTable)
-    | ({
-        _key: string
-      } & StatsBand)
-    | ({
-        _key: string
-      } & TestimonialsCarousel)
-    | ({
-        _key: string
-      } & ImageCta)
-  >
-  seo?: {
-    metaTitle?: string
-    metaDescription?: string
-    ogImage?: {
-      asset?: SanityImageAssetReference
-      media?: unknown
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      _type: 'image'
-    }
-  }
-}
-
 export type PersonReference = {
   _ref: string
   _type: 'reference'
@@ -448,6 +372,52 @@ export type Slug = {
   _type: 'slug'
   current: string
   source?: string
+}
+
+export type Page = {
+  _id: string
+  _type: 'page'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: string
+  slug: Slug
+  heading?: string
+  subheading?: string
+  pageBuilder?: Array<
+    | ({
+        _key: string
+      } & HeroSection)
+    | ({
+        _key: string
+      } & StatsIconBar)
+    | ({
+        _key: string
+      } & FeatureBlock)
+    | ({
+        _key: string
+      } & ComparisonTable)
+    | ({
+        _key: string
+      } & StatsBand)
+    | ({
+        _key: string
+      } & TestimonialsCarousel)
+    | ({
+        _key: string
+      } & ImageCta)
+  >
+  seo?: {
+    metaTitle?: string
+    metaDescription?: string
+    ogImage?: {
+      asset?: SanityImageAssetReference
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+  }
 }
 
 export type SanityAssistInstructionTask = {
@@ -697,8 +667,6 @@ export type AllSanitySchemaTypes =
   | PageReference
   | PostReference
   | Link
-  | CallToAction
-  | InfoSection
   | BlockContentTextOnly
   | BlockContent
   | Button
@@ -707,11 +675,11 @@ export type AllSanitySchemaTypes =
   | SanityImageCrop
   | SanityImageHotspot
   | Footer
-  | Page
   | PersonReference
   | Post
   | Person
   | Slug
+  | Page
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus
   | SanityAssistSchemaTypeAnnotations

@@ -28,13 +28,20 @@ type FeatureBlockProps = {
 }
 
 export default function FeatureBlock({block}: FeatureBlockProps) {
-  const {image, imagePosition = 'left', headline, ctaText, ctaUrl, ctaVariant, label, listItems} =
-    block
+  const {
+    image,
+    imagePosition = 'left',
+    headline,
+    ctaText,
+    ctaUrl,
+    label,
+    listItems,
+  } = block
   const isImageRight = imagePosition === 'right'
 
   const imageId = image?.asset?._id || image?.asset?._ref
   const imageEl = imageId ? (
-    <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+    <div className="relative aspect-5/6 border-2 border-green  rounded-xl overflow-hidden">
       <Image
         id={imageId}
         alt={headline || 'Feature image'}
@@ -47,30 +54,24 @@ export default function FeatureBlock({block}: FeatureBlockProps) {
 
   const contentEl = (
     <div className="flex flex-col justify-center space-y-6">
-      {headline && <h2>{headline}</h2>}
+      {headline && <h2 className="md:max-w-[16ch]">{headline}</h2>}
 
       {ctaText && (
         <div>
-          <Button
-            href={ctaUrl || '#'}
-            variant={(ctaVariant as 'primary' | 'secondary' | 'outline') || 'secondary'}
-          >
-            {ctaText}
-          </Button>
+          <Button href={ctaUrl || '#'}>{ctaText}</Button>
         </div>
       )}
 
-      {label && (
-        <Badge className="text-green/70">{label}</Badge>
-      )}
+      {label && <Badge className=" mt-6">{label}</Badge>}
 
       {listItems && listItems.length > 0 && (
-        <ul className="space-y-4">
+        <ul className="space-y-4 md:space-y-6">
           {listItems.map((item) => (
-            <li key={item._key} className="flex items-center gap-4">
-              {item.icon && (
-                <Icon icon={item.icon} className="w-6 h-6 text-green flex-shrink-0" />
-              )}
+            <li
+              key={item._key}
+              className="flex  pt-4 md:pt-6 border-green/20 border-t items-center gap-4"
+            >
+              {item.icon && <Icon icon={item.icon} className="w-6 h-6 text-green shrink-0" />}
               <span className="font-sans font-medium text-lg text-green">{item.text}</span>
             </li>
           ))}
@@ -83,17 +84,8 @@ export default function FeatureBlock({block}: FeatureBlockProps) {
     <section className="py-20 lg:py-30">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {isImageRight ? (
-            <>
-              {contentEl}
-              {imageEl}
-            </>
-          ) : (
-            <>
-              {imageEl}
-              {contentEl}
-            </>
-          )}
+          <div className={isImageRight ? 'order-2' : 'order-1'}>{imageEl}</div>
+          <div className={isImageRight ? 'order-1' : 'order-2'}>{contentEl}</div>
         </div>
       </Container>
     </section>
