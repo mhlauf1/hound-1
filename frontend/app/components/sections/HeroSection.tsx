@@ -45,41 +45,44 @@ export default function HeroSection({block}: HeroSectionProps) {
   }
 
   return (
-    <section className="py-16 lg:py-24">
+    <section className="py-16 lg:py-20">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
           {/* Left column */}
           <div className="space-y-6">
             {ratingCount && <StarRating count={5} text={ratingCount} />}
+            <div>
+              <h1 className="mb-6">
+                {headlineParts.map((part, i) =>
+                  part.italic ? (
+                    <em key={i} className="italic">
+                      {part.text}
+                    </em>
+                  ) : (
+                    <span key={i}>{part.text}</span>
+                  ),
+                )}
+              </h1>
 
-            <h1>
-              {headlineParts.map((part, i) =>
-                part.italic ? (
-                  <em key={i} className="italic">
-                    {part.text}
-                  </em>
-                ) : (
-                  <span key={i}>{part.text}</span>
-                ),
+              {subtext && (
+                <p
+                  className="text-lg mb-8 md:mb-10 lg:text-xl max-w-lg"
+                  style={{color: 'var(--color-text-secondary)'}}
+                >
+                  {subtext}
+                </p>
               )}
-            </h1>
-
-            {subtext && (
-              <p
-                className="text-lg lg:text-xl max-w-lg"
-                style={{color: 'var(--color-text-secondary)'}}
-              >
-                {subtext}
-              </p>
-            )}
-
+            </div>
             {ctaText && (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <Button href={ctaUrl || '#'} variant="primary">
                   {ctaText}
                 </Button>
                 {microCopy && (
-                  <p className="text-sm font-sans" style={{color: 'var(--color-text-secondary)'}}>
+                  <p
+                    className="text-sm  font-medium font-sans"
+                    style={{color: 'var(--color-text-light)'}}
+                  >
                     {microCopy}
                   </p>
                 )}

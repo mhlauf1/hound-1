@@ -27,14 +27,14 @@ export default function StatsIconBar({block}: StatsIconBarProps) {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 py-10">
           {items.map((item) => (
             <div key={item._key} className="flex flex-col items-center text-center gap-3">
-              <div className="size-14 md:size-20 flex items-center justify-center">
+              <div className="size-12 md:size-14 flex items-center justify-center">
                 {item.icon?.asset && (item.icon.asset._id || item.icon.asset._ref) ? (
                   <Image
                     id={(item.icon.asset._id || item.icon.asset._ref) as string}
                     alt={item.label || ''}
                     width={48}
                     height={48}
-                    className="size-14 md:size-20"
+                    className="size-12 md:size-14"
                   />
                 ) : item.iconFallback ? (
                   <Icon icon={item.iconFallback} className="w-10 h-10 text-green" />

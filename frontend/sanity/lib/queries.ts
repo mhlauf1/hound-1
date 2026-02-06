@@ -43,6 +43,24 @@ const pageBuilderExpansion = /* groq */ `
         asset->
       }
     },
+    _type == "comparisonTable" => {
+      ...,
+      checkIcon {
+        ...,
+        asset->
+      },
+      xIcon {
+        ...,
+        asset->
+      }
+    },
+    _type == "testimonialsCarousel" => {
+      ...,
+      icon {
+        ...,
+        asset->
+      }
+    },
     _type == "imageCta" => {
       ...,
       backgroundImage {

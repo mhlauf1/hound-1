@@ -46,9 +46,9 @@ npm run import-sample-data
 
 Schemas are organized into three categories and exported from `index.ts`:
 
-- **documents/**: `page`, `post`, `person` — top-level content types
-- **objects/**: `blockContent`, `blockContentTextOnly`, `link`, `button` — reusable embedded types
-- **singletons/**: `settings` (ID: `siteSettings`) — global site config
+- **documents/**: `page`, `post`, `person`, `footer` — top-level content types
+- **objects/**: `blockContent`, `blockContentTextOnly`, `link`, `button`, `announcementBar`, `heroSection`, `statsIconBar`, `featureBlock`, `comparisonTable`, `statsBand`, `testimonialsCarousel`, `imageCta` — reusable embedded types (page builder blocks + primitives)
+- **singletons/**: `settings` (ID: `siteSettings`) — global site config; references the `footer` document
 
 All schemas use `defineType`/`defineField`/`defineArrayMember` from Sanity. Type generation produces `sanity.types.ts` in both workspaces.
 
@@ -100,6 +100,8 @@ Custom structure in `studio/src/structure/index.ts` groups settings as a singlet
 - `blockContent` supports image and link annotations (URL, page ref, post ref); `blockContentTextOnly` is text-only
 - Frontend components live in `frontend/app/components/` — layout components in `layout/`, page sections in `sections/`, shared primitives in `ui/`
 - Navigation uses a 3-column CSS grid on desktop (`grid-cols-3`) to keep the logo perfectly centered regardless of nav link count; mobile uses a separate flex layout with hamburger menu
-- Tailwind uses custom colors (cream, green, yellow) with a max container width of 1380px; serif font for headings/buttons, sans for body text
+- Tailwind uses custom colors (cream, cream-dark, green, yellow) with a max container width of 1380px; serif font for headings/buttons, sans for body text
+- The testimonials carousel uses a CSS marquee animation (auto-scrolling, pauses on hover, respects `prefers-reduced-motion`)
+- Several section schemas (`comparisonTable`, `testimonialsCarousel`, `statsIconBar`) support uploadable image icons with Iconify fallbacks; use the `SanityImage` component with the asset `_id`
 - Buttons use `font-serif` and `rounded-full` with `primary` (yellow bg), `secondary` (green bg), and `outline` variants
 - Remote images configured for `cdn.sanity.io` in `next.config.ts`

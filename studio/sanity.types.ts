@@ -71,6 +71,20 @@ export type ComparisonTable = {
   subheadline?: string
   competitors?: Array<string>
   highlightColumnName?: string
+  checkIcon?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  xIcon?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
   rows?: Array<{
     feature: string
     values?: Array<boolean>

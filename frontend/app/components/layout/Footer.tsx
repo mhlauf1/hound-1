@@ -11,9 +11,9 @@ export default function SiteFooter({settings}: SiteFooterProps) {
   const siteName = settings?.title || 'Hound Around Resort'
 
   return (
-    <footer className="bg-cream n">
+    <footer className="bg-cream-dark">
       <Container>
-        <div className="py-16 lg:py-20">
+        <div className="py-10 lg:py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {/* Brand column */}
             <div className="lg:col-span-1 lg:pr-8">
@@ -38,8 +38,8 @@ export default function SiteFooter({settings}: SiteFooterProps) {
             {/* Dynamic link columns */}
             {footer?.columns?.map((column) => (
               <div key={column._key}>
-                <h4 className="font-sans font-medium text-base text-green mb-4">{column.title}</h4>
-                <ul className="space-y-2">
+                <h4 className="font-serif font-semibold text-lg text-green mb-4">{column.title}</h4>
+                <ul className="space-y-3">
                   {column.links?.map((link) => (
                     <li key={link._key}>
                       <Link
@@ -58,9 +58,9 @@ export default function SiteFooter({settings}: SiteFooterProps) {
             {/* Contact column (from footer doc) */}
             {(footer?.address || footer?.phone || footer?.email) && (
               <div>
-                <h4 className="font-sans font-medium text-base text-green mb-4">Contact</h4>
+                <h4 className="font-serif font-semibold text-lg text-green mb-4">Contact</h4>
                 <div
-                  className="space-y-2 font-sans text-sm"
+                  className="space-y-3 font-sans text-sm"
                   style={{color: 'var(--color-text-secondary)'}}
                 >
                   {footer.address && <p className="whitespace-pre-line">{footer.address}</p>}
@@ -114,7 +114,7 @@ export default function SiteFooter({settings}: SiteFooterProps) {
               </>
             )}
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-8">
             <Link href="/privacy" className="hover:underline">
               Privacy Policy
             </Link>

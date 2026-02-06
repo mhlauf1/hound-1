@@ -45,6 +45,13 @@ export type ImageCta = {
 
 export type TestimonialsCarousel = {
   _type: 'testimonialsCarousel'
+  icon?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
   headline?: string
   testimonials?: Array<{
     quote: string
@@ -71,6 +78,20 @@ export type ComparisonTable = {
   subheadline?: string
   competitors?: Array<string>
   highlightColumnName?: string
+  checkIcon?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  xIcon?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
   rows?: Array<{
     feature: string
     values?: Array<boolean>
@@ -785,7 +806,7 @@ export type SettingsQueryResult = {
 
 // Source: sanity/lib/queries.ts
 // Variable: homepageQuery
-// Query: *[_type == 'page' && slug.current == 'home'][0]{    _id,    _type,    name,    slug,      "pageBuilder": pageBuilder[]{    ...,    _type == "heroSection" => {      ...,      heroImage {        ...,        asset->      }    },    _type == "statsIconBar" => {      ...,      items[]{        ...,        icon {          ...,          asset->        }      }    },    _type == "featureBlock" => {      ...,      image {        ...,        asset->      }    },    _type == "imageCta" => {      ...,      backgroundImage {        ...,        asset->      }    },  },  }
+// Query: *[_type == 'page' && slug.current == 'home'][0]{    _id,    _type,    name,    slug,      "pageBuilder": pageBuilder[]{    ...,    _type == "heroSection" => {      ...,      heroImage {        ...,        asset->      }    },    _type == "statsIconBar" => {      ...,      items[]{        ...,        icon {          ...,          asset->        }      }    },    _type == "featureBlock" => {      ...,      image {        ...,        asset->      }    },    _type == "comparisonTable" => {      ...,      checkIcon {        ...,        asset->      },      xIcon {        ...,        asset->      }    },    _type == "testimonialsCarousel" => {      ...,      icon {        ...,        asset->      }    },    _type == "imageCta" => {      ...,      backgroundImage {        ...,        asset->      }    },  },  }
 export type HomepageQueryResult = {
   _id: string
   _type: 'page'
@@ -799,6 +820,62 @@ export type HomepageQueryResult = {
         subheadline?: string
         competitors?: Array<string>
         highlightColumnName?: string
+        checkIcon: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        } | null
+        xIcon: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        } | null
         rows?: Array<{
           feature: string
           values?: Array<boolean>
@@ -974,6 +1051,34 @@ export type HomepageQueryResult = {
     | {
         _key: string
         _type: 'testimonialsCarousel'
+        icon: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        } | null
         headline?: string
         testimonials?: Array<{
           quote: string
@@ -987,7 +1092,7 @@ export type HomepageQueryResult = {
 
 // Source: sanity/lib/queries.ts
 // Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,      "pageBuilder": pageBuilder[]{    ...,    _type == "heroSection" => {      ...,      heroImage {        ...,        asset->      }    },    _type == "statsIconBar" => {      ...,      items[]{        ...,        icon {          ...,          asset->        }      }    },    _type == "featureBlock" => {      ...,      image {        ...,        asset->      }    },    _type == "imageCta" => {      ...,      backgroundImage {        ...,        asset->      }    },  },  }
+// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,      "pageBuilder": pageBuilder[]{    ...,    _type == "heroSection" => {      ...,      heroImage {        ...,        asset->      }    },    _type == "statsIconBar" => {      ...,      items[]{        ...,        icon {          ...,          asset->        }      }    },    _type == "featureBlock" => {      ...,      image {        ...,        asset->      }    },    _type == "comparisonTable" => {      ...,      checkIcon {        ...,        asset->      },      xIcon {        ...,        asset->      }    },    _type == "testimonialsCarousel" => {      ...,      icon {        ...,        asset->      }    },    _type == "imageCta" => {      ...,      backgroundImage {        ...,        asset->      }    },  },  }
 export type GetPageQueryResult = {
   _id: string
   _type: 'page'
@@ -1003,6 +1108,62 @@ export type GetPageQueryResult = {
         subheadline?: string
         competitors?: Array<string>
         highlightColumnName?: string
+        checkIcon: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        } | null
+        xIcon: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        } | null
         rows?: Array<{
           feature: string
           values?: Array<boolean>
@@ -1178,6 +1339,34 @@ export type GetPageQueryResult = {
     | {
         _key: string
         _type: 'testimonialsCarousel'
+        icon: {
+          asset: {
+            _id: string
+            _type: 'sanity.imageAsset'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            originalFilename?: string
+            label?: string
+            title?: string
+            description?: string
+            altText?: string
+            sha1hash?: string
+            extension?: string
+            mimeType?: string
+            size?: number
+            assetId?: string
+            uploadId?: string
+            path?: string
+            url?: string
+            metadata?: SanityImageMetadata
+            source?: SanityAssetSourceData
+          } | null
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        } | null
         headline?: string
         testimonials?: Array<{
           quote: string
@@ -1210,8 +1399,8 @@ import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
     '*[_type == "settings"][0]{\n  ...,\n  footer->{\n    _id,\n    _type,\n    tagline,\n    columns,\n    address,\n    phone,\n    email,\n    copyrightText,\n    parentCompany,\n    parentCompanyUrl\n  }\n}': SettingsQueryResult
-    '\n  *[_type == \'page\' && slug.current == \'home\'][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    \n  "pageBuilder": pageBuilder[]{\n    ...,\n    _type == "heroSection" => {\n      ...,\n      heroImage {\n        ...,\n        asset->\n      }\n    },\n    _type == "statsIconBar" => {\n      ...,\n      items[]{\n        ...,\n        icon {\n          ...,\n          asset->\n        }\n      }\n    },\n    _type == "featureBlock" => {\n      ...,\n      image {\n        ...,\n        asset->\n      }\n    },\n    _type == "imageCta" => {\n      ...,\n      backgroundImage {\n        ...,\n        asset->\n      }\n    },\n  }\n,\n  }\n': HomepageQueryResult
-    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \n  "pageBuilder": pageBuilder[]{\n    ...,\n    _type == "heroSection" => {\n      ...,\n      heroImage {\n        ...,\n        asset->\n      }\n    },\n    _type == "statsIconBar" => {\n      ...,\n      items[]{\n        ...,\n        icon {\n          ...,\n          asset->\n        }\n      }\n    },\n    _type == "featureBlock" => {\n      ...,\n      image {\n        ...,\n        asset->\n      }\n    },\n    _type == "imageCta" => {\n      ...,\n      backgroundImage {\n        ...,\n        asset->\n      }\n    },\n  }\n,\n  }\n': GetPageQueryResult
+    '\n  *[_type == \'page\' && slug.current == \'home\'][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    \n  "pageBuilder": pageBuilder[]{\n    ...,\n    _type == "heroSection" => {\n      ...,\n      heroImage {\n        ...,\n        asset->\n      }\n    },\n    _type == "statsIconBar" => {\n      ...,\n      items[]{\n        ...,\n        icon {\n          ...,\n          asset->\n        }\n      }\n    },\n    _type == "featureBlock" => {\n      ...,\n      image {\n        ...,\n        asset->\n      }\n    },\n    _type == "comparisonTable" => {\n      ...,\n      checkIcon {\n        ...,\n        asset->\n      },\n      xIcon {\n        ...,\n        asset->\n      }\n    },\n    _type == "testimonialsCarousel" => {\n      ...,\n      icon {\n        ...,\n        asset->\n      }\n    },\n    _type == "imageCta" => {\n      ...,\n      backgroundImage {\n        ...,\n        asset->\n      }\n    },\n  }\n,\n  }\n': HomepageQueryResult
+    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \n  "pageBuilder": pageBuilder[]{\n    ...,\n    _type == "heroSection" => {\n      ...,\n      heroImage {\n        ...,\n        asset->\n      }\n    },\n    _type == "statsIconBar" => {\n      ...,\n      items[]{\n        ...,\n        icon {\n          ...,\n          asset->\n        }\n      }\n    },\n    _type == "featureBlock" => {\n      ...,\n      image {\n        ...,\n        asset->\n      }\n    },\n    _type == "comparisonTable" => {\n      ...,\n      checkIcon {\n        ...,\n        asset->\n      },\n      xIcon {\n        ...,\n        asset->\n      }\n    },\n    _type == "testimonialsCarousel" => {\n      ...,\n      icon {\n        ...,\n        asset->\n      }\n    },\n    _type == "imageCta" => {\n      ...,\n      backgroundImage {\n        ...,\n        asset->\n      }\n    },\n  }\n,\n  }\n': GetPageQueryResult
     '\n  *[_type == "page" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult
     '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult
   }

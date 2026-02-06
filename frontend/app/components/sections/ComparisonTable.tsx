@@ -1,12 +1,18 @@
 import CheckXMark from '@/app/components/ui/CheckXMark'
 import Container from '@/app/components/ui/Container'
 
+type SanityImageField = {
+  asset?: {_id?: string; _ref?: string} | null
+} | null
+
 type ComparisonTableProps = {
   block: {
     headline?: string | null
     subheadline?: string | null
     competitors?: Array<string> | null
     highlightColumnName?: string | null
+    checkIcon?: SanityImageField
+    xIcon?: SanityImageField
     rows?: Array<{
       _key: string
       feature?: string | null
@@ -16,7 +22,7 @@ type ComparisonTableProps = {
 }
 
 export default function ComparisonTable({block}: ComparisonTableProps) {
-  const {headline, subheadline, competitors = [], highlightColumnName, rows = []} = block
+  const {headline, subheadline, competitors = [], highlightColumnName, checkIcon, xIcon, rows = []} = block
   const totalCols = (competitors?.length || 0) + 1 // competitors + highlight
 
   return (
@@ -67,12 +73,12 @@ export default function ComparisonTable({block}: ComparisonTableProps) {
                       </td>
                       <td className="p-3 text-center">
                         <div className="flex justify-center">
-                          <CheckXMark checked={othersValue} />
+                          <CheckXMark checked={othersValue} checkIcon={checkIcon} xIcon={xIcon} />
                         </div>
                       </td>
                       <td className="p-3 text-center bg-yellow">
                         <div className="flex justify-center">
-                          <CheckXMark checked={highlightValue} />
+                          <CheckXMark checked={highlightValue} checkIcon={checkIcon} xIcon={xIcon} />
                         </div>
                       </td>
                     </tr>
@@ -118,7 +124,7 @@ export default function ComparisonTable({block}: ComparisonTableProps) {
                       return (
                         <td key={i} className={`p-4 text-center ${isHighlight ? 'bg-yellow' : ''}`}>
                           <div className="flex justify-center">
-                            <CheckXMark checked={val} />
+                            <CheckXMark checked={val} checkIcon={checkIcon} xIcon={xIcon} />
                           </div>
                         </td>
                       )

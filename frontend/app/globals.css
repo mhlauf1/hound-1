@@ -27,6 +27,7 @@
   --color-border-dashed: rgba(0, 48, 5, 0.3);
   --shadow-card: 0 2px 8px rgba(0, 48, 5, 0.06);
   --shadow-card-hover: 0 4px 16px rgba(0, 48, 5, 0.1);
+  --color-text-light: rgba(0, 48, 5, 0.5);
 }
 
 @utility container {
@@ -56,13 +57,13 @@
   h1 {
     font-size: 5.25rem;
     line-height: 0.9;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
   }
 
   h2 {
     font-size: 4.25rem;
-    line-height: 110%;
-    letter-spacing: -0.5px;
+    line-height: 100%;
+    letter-spacing: -1px;
   }
 
   h3 {
@@ -106,11 +107,26 @@
   }
 }
 
-/* Hide scrollbar for testimonials carousel */
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* Testimonials marquee */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
+
+.animate-marquee {
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
 }

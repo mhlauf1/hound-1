@@ -28,15 +28,7 @@ type FeatureBlockProps = {
 }
 
 export default function FeatureBlock({block}: FeatureBlockProps) {
-  const {
-    image,
-    imagePosition = 'left',
-    headline,
-    ctaText,
-    ctaUrl,
-    label,
-    listItems,
-  } = block
+  const {image, imagePosition = 'left', headline, ctaText, ctaUrl, label, listItems} = block
   const isImageRight = imagePosition === 'right'
 
   const imageId = image?.asset?._id || image?.asset?._ref
@@ -54,7 +46,7 @@ export default function FeatureBlock({block}: FeatureBlockProps) {
 
   const contentEl = (
     <div className="flex flex-col justify-center space-y-6">
-      {headline && <h2 className="md:max-w-[16ch]">{headline}</h2>}
+      {headline && <h2 className="md:max-w-[15ch]">{headline}</h2>}
 
       {ctaText && (
         <div>
@@ -81,7 +73,7 @@ export default function FeatureBlock({block}: FeatureBlockProps) {
   )
 
   return (
-    <section className="py-20 lg:py-30">
+    <section className="py-16 lg:py-20">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className={isImageRight ? 'order-2' : 'order-1'}>{imageEl}</div>
