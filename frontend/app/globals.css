@@ -16,7 +16,7 @@
   --font-sans: 'Switzer', system-ui, sans-serif;
 
   --radius-default: 12px;
-  --radius-pill: 9999px;
+  --radius-pill: 9998px;
 
   --default-transition-duration: 200ms;
 }

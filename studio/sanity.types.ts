@@ -45,6 +45,13 @@ export type ImageCta = {
 
 export type TestimonialsCarousel = {
   _type: 'testimonialsCarousel'
+  icon?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
   headline?: string
   testimonials?: Array<{
     quote: string
