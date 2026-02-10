@@ -32,6 +32,18 @@ export const comparisonTable = defineType({
       description: 'Your brand column name (e.g. "Hound Around Resort")',
     }),
     defineField({
+      name: 'checkIcon',
+      title: 'Check Icon',
+      type: 'image',
+      description: 'Custom icon for "true" cells (falls back to default check icon)',
+    }),
+    defineField({
+      name: 'xIcon',
+      title: 'X Icon',
+      type: 'image',
+      description: 'Custom icon for "false" cells (falls back to default X icon)',
+    }),
+    defineField({
       name: 'rows',
       title: 'Table Rows',
       type: 'array',

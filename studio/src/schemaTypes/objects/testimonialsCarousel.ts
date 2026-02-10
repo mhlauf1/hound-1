@@ -8,6 +8,12 @@ export const testimonialsCarousel = defineType({
   icon: UsersIcon,
   fields: [
     defineField({
+      name: 'icon',
+      title: 'Section Icon',
+      type: 'image',
+      description: 'Small icon displayed above the headline',
+    }),
+    defineField({
       name: 'headline',
       title: 'Section Headline',
       type: 'string',

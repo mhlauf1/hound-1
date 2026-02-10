@@ -11,12 +11,9 @@ type ButtonProps = {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    'bg-yellow text-green border-green hover:brightness-95 hover:scale-[1.02]',
-  secondary:
-    'bg-green text-cream border-green hover:opacity-90',
-  outline:
-    'bg-transparent text-green border-green hover:bg-green hover:text-cream',
+  primary: 'bg-yellow text-green border-green hover:brightness-95 hover:scale-[1.01]',
+  secondary: 'bg-green text-cream border-green hover:opacity-90',
+  outline: 'bg-transparent text-green border-green hover:bg-green hover:text-cream',
 }
 
 export default function Button({
@@ -27,7 +24,7 @@ export default function Button({
   onClick,
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center font-sans font-medium text-base tracking-[0.02em] px-8 py-3.5 rounded-full border transition-all duration-200'
+    'inline-flex items-center justify-center font-serif font-medium text-base md:text-lg font-medium px-8 py-3.5 rounded-full border transition-all duration-200'
 
   const styles = `${baseStyles} ${variantStyles[variant]} ${className}`
 

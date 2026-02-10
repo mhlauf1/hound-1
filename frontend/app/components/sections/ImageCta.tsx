@@ -21,7 +21,7 @@ export default function ImageCta({block}: ImageCtaProps) {
   const {headline, ctaText, ctaUrl, backgroundImage, overlayOpacity = 0.3} = block
 
   return (
-    <section className="relative w-screen left-1/2 -translate-x-1/2 min-h-[500px] lg:min-h-[600px] flex items-center justify-center">
+    <section className="relative w-[calc(100vw-1rem)] left-1/2 -translate-x-1/2 min-h-[500px] lg:min-h-[90vh] flex items-center justify-center">
       {/* Background image */}
       {backgroundImage?.asset && (backgroundImage.asset._id || backgroundImage.asset._ref) && (
         <div className="absolute inset-0">
@@ -44,7 +44,9 @@ export default function ImageCta({block}: ImageCtaProps) {
       {/* Content */}
       <div className="relative z-10 text-center px-5 py-20">
         {headline && (
-          <h1 className="text-cream italic mb-8 max-w-3xl mx-auto">{headline}</h1>
+          <h1 className="text-cream text-[58px] sm:text-[64px] md:text-[98px] lg:text-[120px] tracking-tight mb-8 max-w-[16ch] mx-auto">
+            {headline}
+          </h1>
         )}
         {ctaText && (
           <Button href={ctaUrl || '#'} variant="primary">

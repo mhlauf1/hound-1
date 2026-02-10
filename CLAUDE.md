@@ -46,15 +46,15 @@ npm run import-sample-data
 
 Schemas are organized into three categories and exported from `index.ts`:
 
-- **documents/**: `page`, `post`, `person` — top-level content types
-- **objects/**: `blockContent`, `blockContentTextOnly`, `callToAction`, `infoSection`, `link`, `button` — reusable embedded types
-- **singletons/**: `settings` (ID: `siteSettings`) — global site config
+- **documents/**: `page`, `post`, `person`, `footer` — top-level content types
+- **objects/**: `blockContent`, `blockContentTextOnly`, `link`, `button`, `announcementBar`, `heroSection`, `statsIconBar`, `featureBlock`, `comparisonTable`, `statsBand`, `testimonialsCarousel`, `imageCta` — reusable embedded types (page builder blocks + primitives)
+- **singletons/**: `settings` (ID: `siteSettings`) — global site config; references the `footer` document
 
 All schemas use `defineType`/`defineField`/`defineArrayMember` from Sanity. Type generation produces `sanity.types.ts` in both workspaces.
 
 ### Page Builder Pattern
 
-The `page` document has a `pageBuilder` array field accepting `callToAction` and `infoSection` blocks. On the frontend, `PageBuilder.tsx` → `BlockRenderer.tsx` maps block `_type` to the correct component.
+The `page` document has a `pageBuilder` array field accepting section blocks: `heroSection`, `statsIconBar`, `featureBlock`, `comparisonTable`, `testimonialsCarousel`, `statsBand`, `imageCta`. On the frontend, `PageBuilder.tsx` → `BlockRenderer.tsx` maps block `_type` to the correct component in `frontend/app/components/sections/`.
 
 ### Polymorphic Link System
 
@@ -63,15 +63,14 @@ The `link` object uses a `linkType` field (`href` | `page` | `post`) with condit
 ### Frontend Data Flow (`frontend/sanity/lib/`)
 
 - **client.ts**: Sanity client with `useCdn: true` and stega support for visual editing
-- **queries.ts**: All GROQ queries with reusable fragments (`postFields`, `linkReference`)
+- **queries.ts**: All GROQ queries with `pageBuilderExpansion` fragment for resolving section images/references
 - **live.ts**: Live Content API setup via `next-sanity/live`
 - **token.ts**: Server-side read token management
 
 ### Routing
 
-- `/` — Homepage (renders posts)
+- `/` — Homepage (page document with slug matching homepage)
 - `/[slug]` — Dynamic pages from `page` documents
-- `/posts/[slug]` — Dynamic posts from `post` documents
 - `/api/draft-mode/enable|disable` — Draft mode toggle
 
 Pages use `generateStaticParams()` for static generation and `generateMetadata()` for SEO.
@@ -99,7 +98,10 @@ Custom structure in `studio/src/structure/index.ts` groups settings as a singlet
 
 - Sanity images use hotspot/crop support — always use `@sanity/image-url` for URL generation
 - `blockContent` supports image and link annotations (URL, page ref, post ref); `blockContentTextOnly` is text-only
-- `callToAction` objects support `light`/`dark` themes and `textImage`/`imageText` content alignment
-- Frontend components live in `frontend/app/components/` — no separate component library
-- Tailwind uses custom colors (cyan, gray, red, orange, yellow, green), Inter font (sans), IBM Plex Mono (mono)
+- Frontend components live in `frontend/app/components/` — layout components in `layout/`, page sections in `sections/`, shared primitives in `ui/`
+- Navigation uses a 3-column CSS grid on desktop (`grid-cols-3`) to keep the logo perfectly centered regardless of nav link count; mobile uses a separate flex layout with hamburger menu
+- Tailwind uses custom colors (cream, cream-dark, green, yellow) with a max container width of 1380px; serif font for headings/buttons, sans for body text
+- The testimonials carousel uses a CSS marquee animation (auto-scrolling, pauses on hover, respects `prefers-reduced-motion`)
+- Several section schemas (`comparisonTable`, `testimonialsCarousel`, `statsIconBar`) support uploadable image icons with Iconify fallbacks; use the `SanityImage` component with the asset `_id`
+- Buttons use `font-serif` and `rounded-full` with `primary` (yellow bg), `secondary` (green bg), and `outline` variants
 - Remote images configured for `cdn.sanity.io` in `next.config.ts`
