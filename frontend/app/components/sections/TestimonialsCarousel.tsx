@@ -1,6 +1,7 @@
 import {Icon} from '@iconify/react'
 import Image from '@/app/components/SanityImage'
 import Container from '@/app/components/ui/Container'
+import {FadeIn} from '@/app/components/ui/FadeIn'
 
 type Testimonial = {
   _key: string
@@ -50,20 +51,22 @@ export default function TestimonialsCarousel({block}: TestimonialsCarouselProps)
     <section className="group py-20 lg:py-36 overflow-hidden">
       {/* Heading area */}
       <Container>
-        <div className="text-center flex justify-center flex-col mb-12 md:mb-16">
-          {iconAssetId ? (
-            <Image
-              id={iconAssetId}
-              alt=""
-              width={32}
-              height={32}
-              className="size-12 md:size-14 mx-auto mb-4"
-            />
-          ) : (
-            <Icon icon="lucide:paw-print" className="w-8 h-8 text-green mx-auto mb-4" />
-          )}
-          {headline && <h2 className="max-w-[12ch] mx-auto">{headline}</h2>}
-        </div>
+        <FadeIn>
+          <div className="text-center flex justify-center flex-col mb-12 md:mb-16">
+            {iconAssetId ? (
+              <Image
+                id={iconAssetId}
+                alt=""
+                width={32}
+                height={32}
+                className="size-12 md:size-14 mx-auto mb-4"
+              />
+            ) : (
+              <Icon icon="lucide:paw-print" className="w-8 h-8 text-green mx-auto mb-4" />
+            )}
+            {headline && <h2 className="max-w-[12ch] mx-auto">{headline}</h2>}
+          </div>
+        </FadeIn>
       </Container>
 
       {/* Auto-scrolling marquee */}

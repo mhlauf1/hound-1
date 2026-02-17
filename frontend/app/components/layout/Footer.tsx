@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type {SettingsQueryResult} from '@/sanity.types'
 import Container from '@/app/components/ui/Container'
+import {FadeIn} from '@/app/components/ui/FadeIn'
 
 type SiteFooterProps = {
   settings: SettingsQueryResult
@@ -16,7 +17,7 @@ export default function SiteFooter({settings}: SiteFooterProps) {
         <div className="py-10 lg:py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {/* Brand column */}
-            <div className="lg:col-span-1 lg:pr-8">
+            <FadeIn className="lg:col-span-1 lg:pr-8">
               <Link href="/" className="inline-block mb-4">
                 <span className="font-serif text-xl font-light tracking-widest uppercase text-green block">
                   {siteName.split(' ').slice(0, -1).join(' ')}
@@ -33,11 +34,11 @@ export default function SiteFooter({settings}: SiteFooterProps) {
                   {footer.tagline}
                 </p>
               )}
-            </div>
+            </FadeIn>
 
             {/* Dynamic link columns */}
-            {footer?.columns?.map((column) => (
-              <div key={column._key}>
+            {footer?.columns?.map((column, index) => (
+              <FadeIn key={column._key} delay={(index + 1) * 0.1}>
                 <h4 className="font-serif font-semibold text-lg text-green mb-4">{column.title}</h4>
                 <ul className="space-y-3">
                   {column.links?.map((link) => (
@@ -52,12 +53,12 @@ export default function SiteFooter({settings}: SiteFooterProps) {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </FadeIn>
             ))}
 
             {/* Contact column (from footer doc) */}
             {(footer?.address || footer?.phone || footer?.email) && (
-              <div>
+              <FadeIn delay={0.3}>
                 <h4 className="font-serif font-semibold text-lg text-green mb-4">Contact</h4>
                 <div
                   className="space-y-3 font-sans text-sm"
@@ -82,7 +83,7 @@ export default function SiteFooter({settings}: SiteFooterProps) {
                     </p>
                   )}
                 </div>
-              </div>
+              </FadeIn>
             )}
           </div>
         </div>

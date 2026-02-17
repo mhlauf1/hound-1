@@ -24,7 +24,7 @@ export default function Button({
   onClick,
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center font-serif font-medium text-base md:text-lg font-medium px-8 py-3.5 rounded-full border transition-all duration-200'
+    'inline-flex items-center justify-center font-sans font-medium text-base md:text-lg font-medium px-8 py-3.5 rounded-full border transition-all duration-200'
 
   const styles = `${baseStyles} ${variantStyles[variant]} ${className}`
 

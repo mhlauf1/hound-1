@@ -1,5 +1,6 @@
 import Image from '@/app/components/SanityImage'
 import Button from '@/app/components/ui/Button'
+import {FadeIn} from '@/app/components/ui/FadeIn'
 
 type SanityImageField = {
   asset?: {_id?: string; _ref?: string} | null
@@ -44,14 +45,18 @@ export default function ImageCta({block}: ImageCtaProps) {
       {/* Content */}
       <div className="relative z-10 text-center px-5 py-20">
         {headline && (
-          <h1 className="text-cream text-[58px] sm:text-[64px] md:text-[98px] lg:text-[120px] tracking-tight mb-8 max-w-[16ch] mx-auto">
-            {headline}
-          </h1>
+          <FadeIn>
+            <h1 className="text-cream text-[58px] sm:text-[64px] md:text-[98px] lg:text-[120px] tracking-tight mb-8 max-w-[16ch] mx-auto">
+              {headline}
+            </h1>
+          </FadeIn>
         )}
         {ctaText && (
-          <Button href={ctaUrl || '#'} variant="primary">
-            {ctaText}
-          </Button>
+          <FadeIn delay={0.15}>
+            <Button href={ctaUrl || '#'} variant="primary">
+              {ctaText}
+            </Button>
+          </FadeIn>
         )}
       </div>
     </section>
