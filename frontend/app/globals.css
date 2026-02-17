@@ -31,7 +31,7 @@
 }
 
 @utility container {
-  max-width: 1380px;
+  max-width: 1480px;
   margin: 0 auto;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -99,7 +99,7 @@
       font-size: 3.25rem;
     }
     h2 {
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
     body {
       font-size: 1.125rem;

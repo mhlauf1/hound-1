@@ -3,6 +3,7 @@ import Image from '@/app/components/SanityImage'
 import Button from '@/app/components/ui/Button'
 import Badge from '@/app/components/ui/Badge'
 import Container from '@/app/components/ui/Container'
+import {FadeIn} from '@/app/components/ui/FadeIn'
 
 type SanityImageField = {
   asset?: {_id?: string; _ref?: string} | null
@@ -46,7 +47,7 @@ export default function FeatureBlock({block}: FeatureBlockProps) {
 
   const contentEl = (
     <div className="flex flex-col justify-center space-y-6">
-      {headline && <h2 className="md:max-w-[15ch]">{headline}</h2>}
+      {headline && <h2 className="md:max-w-[18ch]">{headline}</h2>}
 
       {ctaText && (
         <div>
@@ -76,8 +77,10 @@ export default function FeatureBlock({block}: FeatureBlockProps) {
     <section className="py-16 lg:py-20">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className={isImageRight ? 'order-2' : 'order-1'}>{imageEl}</div>
-          <div className={isImageRight ? 'order-1' : 'order-2'}>{contentEl}</div>
+          <FadeIn className={isImageRight ? 'order-2' : 'order-1'}>{imageEl}</FadeIn>
+          <FadeIn delay={0.15} className={isImageRight ? 'order-1' : 'order-2'}>
+            {contentEl}
+          </FadeIn>
         </div>
       </Container>
     </section>

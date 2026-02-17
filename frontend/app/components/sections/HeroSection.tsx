@@ -1,6 +1,7 @@
 import Image from '@/app/components/SanityImage'
 import Button from '@/app/components/ui/Button'
 import Container from '@/app/components/ui/Container'
+import {FadeIn} from '@/app/components/ui/FadeIn'
 import StarRating from '@/app/components/ui/StarRating'
 
 type SanityImageField = {
@@ -49,58 +50,63 @@ export default function HeroSection({block}: HeroSectionProps) {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
           {/* Left column */}
-          <div className="space-y-6">
-            {ratingCount && <StarRating count={5} text={ratingCount} />}
-            <div>
-              <h1 className="mb-6">
-                {headlineParts.map((part, i) =>
-                  part.italic ? (
-                    <em key={i} className="italic">
-                      {part.text}
-                    </em>
-                  ) : (
-                    <span key={i}>{part.text}</span>
-                  ),
-                )}
-              </h1>
+          <div className="space-y-6 ">
+            <FadeIn>
+              {ratingCount && <StarRating count={5} text={ratingCount} />}
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <div>
+                <h1 className="mb-6">
+                  {headlineParts.map((part, i) =>
+                    part.italic ? (
+                      <em key={i} className="italic">
+                        {part.text}
+                      </em>
+                    ) : (
+                      <span key={i}>{part.text}</span>
+                    ),
+                  )}
+                </h1>
 
-              {subtext && (
-                <p
-                  className="text-lg mb-8 md:mb-10 lg:text-xl max-w-lg"
-                  style={{color: 'var(--color-text-secondary)'}}
-                >
-                  {subtext}
-                </p>
-              )}
-            </div>
-            {ctaText && (
-              <div className="space-y-4">
-                <Button href={ctaUrl || '#'} variant="primary">
-                  {ctaText}
-                </Button>
-                {microCopy && (
+                {subtext && (
                   <p
-                    className="text-sm  font-medium font-sans"
-                    style={{color: 'var(--color-text-light)'}}
+                    className="text-lg mb-8 md:mb-10 lg:text-xl max-w-lg"
+                    style={{color: 'var(--color-text-secondary)'}}
                   >
-                    {microCopy}
+                    {subtext}
                   </p>
                 )}
               </div>
+            </FadeIn>
+            {ctaText && (
+              <FadeIn delay={0.2}>
+                <div className="space-y-4">
+                  <Button href={ctaUrl || '#'} variant="primary">
+                    {ctaText}
+                  </Button>
+                  {microCopy && (
+                    <p className="text-sm font-sans" style={{color: 'var(--color-text-green)'}}>
+                      {microCopy}
+                    </p>
+                  )}
+                </div>
+              </FadeIn>
             )}
           </div>
 
           {/* Right column: hero image */}
           {heroImage?.asset && (heroImage.asset._id || heroImage.asset._ref) && (
-            <div className="relative aspect-square rounded-xl border-2 border-green overflow-hidden">
-              <Image
-                id={(heroImage.asset._id || heroImage.asset._ref) as string}
-                alt="Hero image"
-                className="object-cover w-full h-full"
-                width={500}
-                height={700}
-              />
-            </div>
+            <FadeIn delay={0.2}>
+              <div className="relative aspect-square rounded-xl border-2 border-green overflow-hidden">
+                <Image
+                  id={(heroImage.asset._id || heroImage.asset._ref) as string}
+                  alt="Hero image"
+                  className="object-cover w-full h-full"
+                  width={500}
+                  height={700}
+                />
+              </div>
+            </FadeIn>
           )}
         </div>
       </Container>
